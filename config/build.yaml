@@ -17,6 +17,15 @@ spec:
   subresources:
     status: {}
   additionalPrinterColumns:
+  - name: BuildNumber
+    type: string
+    JSONPath: ".spec.buildNumber"
   - name: SHA
     type: string
     JSONPath: ".status.SHA"
+  - name: Succeeded
+    type: string
+    JSONPath: ".status.conditions[?(@.type==\"Succeeded\")].status"
+  - name: Reason
+    type: string
+    JSONPath: ".status.conditions[?(@.type==\"Succeeded\")].reason"

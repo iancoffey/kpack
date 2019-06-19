@@ -103,6 +103,10 @@ func (c *Reconciler) Reconcile(ctx context.Context, key string) error {
 		build = lastBuild
 	}
 
+	if lastBuild != nil {
+		image.Status.LastBuiltImage = lastBuild.Spec.Image + "@" + lastBuild.Status.SHA
+	}
+
 	image.Status.LastBuildRef = build.Name
 	image.Status.ObservedGeneration = image.Generation
 

@@ -44,6 +44,7 @@ type ImageStatus struct {
 	duckv1alpha1.Status `json:",inline"`
 	LastBuildRef        string `json:"lastBuildRef"`
 	BuildCounter        int32  `json:"buildCounter"`
+	LastBuiltImage      string `json:"lastBuiltImage"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

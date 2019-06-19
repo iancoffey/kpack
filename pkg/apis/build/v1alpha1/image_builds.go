@@ -4,7 +4,6 @@ import (
 	"strconv"
 
 	"github.com/knative/pkg/kmeta"
-	"github.com/pborman/uuid"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -43,7 +42,7 @@ func (im *Image) configMatches(build *Build) bool {
 func (im *Image) CreateBuild(builder *Builder) *Build {
 	return &Build{
 		ObjectMeta: v1.ObjectMeta{
-			Name: im.generateBuildName(),
+			GenerateName: im.generateBuildName(),
 			OwnerReferences: []v1.OwnerReference{
 				*kmeta.NewControllerRef(im),
 			},
@@ -53,6 +52,7 @@ func (im *Image) CreateBuild(builder *Builder) *Build {
 			},
 		},
 		Spec: BuildSpec{
+			BuildNumber:    im.nextBuildNumber(),
 			Image:          im.Spec.Image,
 			Builder:        builder.Spec.Image,
 			ServiceAccount: im.Spec.ServiceAccount,
@@ -66,7 +66,7 @@ func (im *Image) nextBuildNumber() string {
 }
 
 func (im *Image) generateBuildName() string {
-	name := im.Name + "-build-" + im.nextBuildNumber() + "-" + uuid.New()
+	name := im.Name + "-build-" + im.nextBuildNumber() + "-"
 	if len(name) > 64 {
 		return name[:63]
 	}

@@ -42,6 +42,7 @@ var (
 )
 
 type BuildSpec struct {
+	BuildNumber    string `json:"buildNumber"`
 	Image          string `json:"image"`
 	Builder        string `json:"builder"`
 	ServiceAccount string `json:"serviceAccount"`
