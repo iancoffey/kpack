@@ -24,17 +24,19 @@
   revision = "c06c82c832edca4eaf7b0241bd655560a1be0346"
 
 [[projects]]
-  digest = "1:3aff45e2d22fc5851ec596b06612ac7319b78904880ec9311dfa67b173515906"
+  digest = "1:ecfb1f91442d655c41cc05e40382977c4b42d73bf8c3f1d5096e71eb8c27ca3b"
   name = "github.com/Azure/go-autorest"
   packages = [
     "autorest",
     "autorest/adal",
     "autorest/azure",
     "autorest/date",
-    "version",
+    "logger",
+    "tracing",
   ]
   pruneopts = "NUT"
-  revision = "bca49d5b51a50dc5bb17bbf6204c711c6dbded06"
+  revision = "5e7a399d8bbf4953ab0c8e3167d7fd535fd74ce1"
+  version = "v13.0.0"
 
 [[projects]]
   branch = "master"
