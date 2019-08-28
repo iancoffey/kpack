@@ -20,6 +20,7 @@ import (
 	"github.com/google/go-containerregistry/pkg/name"
 	v1 "github.com/google/go-containerregistry/pkg/v1"
 	"github.com/google/go-containerregistry/pkg/v1/remote"
+	"github.com/otiai10/copy"
 )
 
 var (
@@ -27,6 +28,7 @@ var (
 	gitRevision   = flag.String("git-revision", os.Getenv("GIT_REVISION"), "The Git revision to make the repository HEAD.")
 	blobURL       = flag.String("blob-url", os.Getenv("BLOB_URL"), "The url of the source code blob.")
 	registryImage = flag.String("registry-image", os.Getenv("REGISTRY_IMAGE"), "The registry location of the source code image.")
+	localPath     = flag.String("local-path", os.Getenv("PATH_LOCATION"), "The local path of the pre-existing source code.")
 )
 
 func run(logger *log.Logger, cmd string, args ...string) {
@@ -126,6 +128,8 @@ func main() {
 		downloadBlob(dir, logger)
 	} else if *registryImage != "" {
 		fetchImage(dir, logger)
+	} else if *localPath != "" {
+		copyLocalPath(dir, logger)
 	} else {
 		logger.Fatal("no git url, blob url, or registry image provided")
 	}
@@ -193,6 +197,14 @@ func fetchLayer(layer v1.Layer, logger *log.Logger, dir string) {
 		if err != nil {
 			logger.Fatal(err.Error())
 		}
+	}
+}
+
+func copyLocalPath(dir string, logger *log.Logger) {
+	logger.Printf("Copying local source directory %q to %q", localPath, dir)
+
+	if err := copy.Copy(localPath, dir); err != nil {
+		logger.Printf("Failed to copy local path %q to working dir %q", localPath, dir)
 	}
 }
 

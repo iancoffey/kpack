@@ -482,6 +482,14 @@
   version = "1.0.1"
 
 [[projects]]
+  digest = "1:8ee373927cfe19669f706ed79673fe2cd1c590173edb37d0c8f887d3d39eea6c"
+  name = "github.com/otiai10/copy"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "a15b9cb96cf2f7930107fe0a9a6faf1b91e69df4"
+  version = "v1.0.1"
+
+[[projects]]
   digest = "1:93b1d84c5fa6d1ea52f4114c37714cddd84d5b78f151b62bb101128dd51399bf"
   name = "github.com/pborman/uuid"
   packages = ["."]
@@ -1391,6 +1399,7 @@
     "github.com/knative/pkg/tracker",
     "github.com/knative/test-infra/scripts",
     "github.com/knative/test-infra/tools/dep-collector",
+    "github.com/otiai10/copy",
     "github.com/pkg/errors",
     "github.com/sclevine/spec",
     "github.com/stretchr/testify/assert",
@@ -1431,6 +1440,7 @@
     "k8s.io/client-go/testing",
     "k8s.io/client-go/tools/cache",
     "k8s.io/client-go/tools/clientcmd",
+    "k8s.io/client-go/tools/clientcmd/api",
     "k8s.io/client-go/tools/record",
     "k8s.io/client-go/util/flowcontrol",
     "k8s.io/code-generator/cmd/client-gen",

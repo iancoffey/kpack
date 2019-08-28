@@ -6,10 +6,34 @@ import (
 )
 
 type SourceConfig struct {
-	Git      *Git      `json:"git,omitempty"`
-	Blob     *Blob     `json:"blob,omitempty"`
-	Registry *Registry `json:"registry,omitempty"`
-	SubPath  string    `json:"subPath,omitempty"`
+	Git       *Git       `json:"git,omitempty"`
+	Blob      *Blob      `json:"blob,omitempty"`
+	Registry  *Registry  `json:"registry,omitempty"`
+	LocalPath *LocalPath `json:"localpath,omitempty"`
+	SubPath   string     `json:"subPath,omitempty"`
+}
+
+type LocalPath struct {
+	Directory string `json:"directory"`
+}
+
+func (l *LocalPath) ImagePullSecretsVolume() corev1.Volume {
+	return corev1.Volume{
+		Name: imagePullSecretsDirName,
+		VolumeSource: corev1.VolumeSource{
+			EmptyDir: &corev1.EmptyDirVolumeSource{},
+		},
+	}
+}
+
+func (l *LocalPath) BuildEnvVars() []corev1.EnvVar {
+	return []corev1.EnvVar{
+		{
+			Name:  "PATH_LOCATION",
+			Value: l.Directory,
+		},
+		homeEnv,
+	}
 }
 
 func (sc *SourceConfig) Source() Source {
