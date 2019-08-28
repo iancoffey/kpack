@@ -43,6 +43,8 @@ func (sc *SourceConfig) Source() Source {
 		return sc.Blob
 	} else if sc.Registry != nil {
 		return sc.Registry
+	} else if sc.LocalPath != nil {
+		return sc.LocalPath
 	}
 	return nil
 }
